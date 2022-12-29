@@ -273,7 +273,7 @@ module rtunit (
   reg [31:0] less_a [0:3];
   reg [31:0] less_b [0:3];
   wire less_out_valid [0:3];
-  wire [7:0] less_out [0:3];
+  wire [31:0] less_out [0:3];
   generate
     for (i = 0; i < 4; i = i + 1) begin
       float_operator #(
