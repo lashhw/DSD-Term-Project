@@ -770,12 +770,23 @@ module rtunit (
     else if (bram_trig_addr_reg_update_r) bram_trig_addr_reg <= r_left_node_or_trig_addr_reg;
   end
   
+  wire [12:0] bram_node_idx = bram_node_addr_reg / 8;
+  wire [13:0] bram_trig_idx = bram_trig_addr_reg / 12;
   always @(posedge clk) begin
-    if (S == S_NODE_LOAD && counter_reg == 0) $strobe("load node: %d", bram_node_addr_reg/8);
-    if ((S == S_TRIG_LEFT_LOAD || S == S_TRIG_RIGHT_LOAD) && counter_reg == 0) $strobe("load trig: %d", bram_trig_addr_reg/12);
-    if (ist_done && ist_intersected) $strobe("triangle intersected");
-    if (stack_we) $strobe("push node"); 
-    if (bram_node_addr_reg_update_stack) $strobe("pop node"); 
+    if (S == S_NODE_LOAD && counter_reg == 0) begin
+      $write("load node: ");
+      $strobe(bram_node_idx);
+    end
+    if ((S == S_TRIG_LEFT_LOAD || S == S_TRIG_RIGHT_LOAD) && counter_reg == 0) begin
+      $write("load trig: ");
+      $strobe(bram_trig_idx);
+    end
+    if (ist_done && ist_intersected)
+      $strobe("triangle intersected");
+    if (stack_we)
+      $strobe("push node"); 
+    if (bram_node_addr_reg_update_stack)
+      $strobe("pop node"); 
   end
 
 endmodule
