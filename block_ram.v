@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module block_ram #(
   parameter RAM_WIDTH = 8,
   parameter RAM_DEPTH = 256,
